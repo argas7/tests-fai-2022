@@ -4,6 +4,8 @@ import app from '../../src/app';
 
 import connection from '../database.config';
 
+import { mockCreateUserParams } from '../unit/entities/mocks';
+
 describe('Integration test for crud of users', () => {
   beforeAll(async () => connection.create());
 
@@ -39,5 +41,21 @@ describe('Integration test for crud of users', () => {
 
     expect(response.status).toEqual(200);
     expect(response.body).toHaveLength(0);
+  });
+
+
+  it('should create three users and then list all of them', async () => {
+    const stUser = mockCreateUserParams(0);
+    const ndUser = mockCreateUserParams(1);
+    const rdUser = mockCreateUserParams(2);
+
+    await request(app).post('/users').send(stUser);
+    await request(app).post('/users').send(ndUser);
+    await request(app).post('/users').send(rdUser);
+
+    const response = await request(app).get('/users');
+
+    expect(response.status).toEqual(200);
+    expect(response.body).toHaveLength(3);
   });
 });
