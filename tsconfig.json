@@ -12,6 +12,8 @@
     "allowJs": true,
     "paths": {
       "@/*": ["*"]
-    }
-  }
+    },
+  },
+  "include": ["src"],
+  "exclude": ["__tests__"]
 }
