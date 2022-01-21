@@ -31,4 +31,11 @@ describe('Integration test for crud of users', () => {
     expect(response.body).toHaveProperty('password', createUserParams.password);
     expect(response.body).toHaveProperty('age', createUserParams.age);
   });
+
+  it('should list all users registered at database', async () => {
+    const response = await request(app).get('/users');
+
+    expect(response.status).toEqual(200);
+    expect(response.body).toHaveLength(1);
+  });
 });
