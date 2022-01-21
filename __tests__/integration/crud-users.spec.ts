@@ -7,6 +7,8 @@ import connection from '../database.config';
 describe('Integration test for crud of users', () => {
   beforeAll(async () => connection.create());
 
+  beforeEach(async () => connection.clear());
+
   afterAll(async () => {
     await connection.clear();
     await connection.close();
