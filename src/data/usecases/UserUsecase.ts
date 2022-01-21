@@ -4,7 +4,7 @@ export interface UserUsecase {
   create(params: UserUsecase.createParams): Promise<User>;
   list(): Promise<User[]>;
   update(params: UserUsecase.updateParams): Promise<User>;
-  delete(params: UserUsecase.deleteParams): void;
+  delete(params: UserUsecase.deleteParams): Promise<void>;
 }
 
 export namespace UserUsecase {
