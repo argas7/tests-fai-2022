@@ -26,10 +26,10 @@ export class UserController {
     res.send(updatedUser);
   }
 
-  delete(req, res) {
+  async delete(req, res) {
     const { id } = req.params;
 
-    this.userService.delete({ id });
+    await this.userService.delete({ id });
 
     res.send('DELETED');
   }

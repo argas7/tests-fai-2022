@@ -10,14 +10,14 @@ export class UserService implements UserUsecase {
   }
 
   async list() {
-    return this.userRepository.list();
+    return await this.userRepository.list();
   }
 
   async update(updateParams: UserUsecase.updateParams) {
     return await this.userRepository.update(updateParams);
   }
 
-  delete(deleteParams: UserUsecase.deleteParams) {
-    return this.userRepository.delete(deleteParams);
+  async delete(deleteParams: UserUsecase.deleteParams) {
+    return await this.userRepository.delete(deleteParams);
   }
 }
