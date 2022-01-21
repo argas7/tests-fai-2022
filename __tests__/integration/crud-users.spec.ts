@@ -38,6 +38,6 @@ describe('Integration test for crud of users', () => {
     const response = await request(app).get('/users');
 
     expect(response.status).toEqual(200);
-    expect(response.body).toHaveLength(1);
+    expect(response.body).toHaveLength(0);
   });
 });
