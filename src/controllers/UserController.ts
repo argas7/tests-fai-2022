@@ -3,10 +3,10 @@ import { UserService } from '@/services';
 export class UserController {
   constructor(private userService: UserService) {}
 
-  create(req, res) {
+  async create(req, res) {
     const { name, email, password, age } = req.body;
 
-    const createdUser = this.userService.create({ name, email, password, age });
+    const createdUser = await this.userService.create({ name, email, password, age });
 
     res.send(createdUser);
   }

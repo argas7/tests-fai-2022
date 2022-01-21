@@ -4,8 +4,9 @@ import { UserUsecase } from '@/data/usecases';
 export class UserService implements UserUsecase {
   constructor(private userRepository: UserRepository) {}
 
-  create(createParams: UserUsecase.createParams) {
-    return this.userRepository.create(createParams);
+  async create(createParams: UserUsecase.createParams) {
+    const user = await this.userRepository.create(createParams);
+    return user;
   }
 
   async list() {
