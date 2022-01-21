@@ -74,4 +74,19 @@ describe('Integration test for crud of users', () => {
     expect(response.body).toHaveProperty('name', paramsToUpdate.name);
     expect(response.body).toHaveProperty('email', paramsToUpdate.email);
   });
+
+
+  it('should create and then delete an user', async () => {
+    const stUser = mockCreateUserParams(0);
+
+    const createUserResponse = await request(app).post('/users').send(stUser);
+
+    const response = await request(app).delete(`/users/${createUserResponse.body.id}`);
+
+    const lastTest = await request(app).get('/users');
+
+    expect(response.status).toEqual(200);
+    expect(response.body).toMatchObject({});
+    expect(lastTest.body).toHaveLength(0);
+  });
 });
