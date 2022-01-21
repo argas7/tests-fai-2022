@@ -1,11 +1,14 @@
+import { getRepository } from 'typeorm';
 import { UserRepository } from '@/data/repositories';
 import { UserUsecase } from '@/data/usecases';
-import { TypeormHelper } from '@/db/config';
 import { User } from '@/db/models';
 
 export class TypeORMUserRepository implements UserRepository {
+  constructor() {}
+
   async create(createParams: UserUsecase.createParams) {
-    const user = await TypeormHelper.connection.getRepository(User).save({
+    const userRepository = getRepository(User);
+    const user = await userRepository.save({
       ...createParams,
     });
 
@@ -13,7 +16,8 @@ export class TypeORMUserRepository implements UserRepository {
   }
 
   async list() {
-    const users = await TypeormHelper.connection.getRepository(User).find({});
+    const userRepository = getRepository(User);
+    const users = await userRepository.find({});
     console.log(users);
 
     return users;
@@ -33,11 +37,12 @@ export class TypeORMUserRepository implements UserRepository {
 
     console.log(propertiesToUpdate);
 
-    await TypeormHelper.connection.getRepository(User).update(
+    const userRepository = getRepository(User);
+    await userRepository.update(
       updateParams.id,
       propertiesToUpdate,
     );
-    const userUpdated = await TypeormHelper.connection.getRepository(User).findOne({
+    const userUpdated = await userRepository.findOne({
       where: { id },
     });
 
@@ -45,6 +50,7 @@ export class TypeORMUserRepository implements UserRepository {
   }
 
   async delete(deleteParams: UserRepository.deleteParams) {
-    await TypeormHelper.connection.getRepository(User).delete(deleteParams.id);
+    const userRepository = getRepository(User);
+    await userRepository.delete(deleteParams.id);
   }
 }
