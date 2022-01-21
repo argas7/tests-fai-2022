@@ -44,7 +44,7 @@ export class TypeORMUserRepository implements UserRepository {
     return userUpdated;
   }
 
-  delete() {
-    console.log('bye bye');
+  async delete(deleteParams: UserRepository.deleteParams) {
+    await TypeormHelper.connection.getRepository(User).delete(deleteParams.id);
   }
 }
