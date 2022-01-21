@@ -4,7 +4,7 @@ import app from '../../src/app';
 
 import connection from '../database.config';
 
-import { mockCreateUserParams } from '../unit/entities/mocks';
+import { mockCreateUserParams, mockUpdateUser } from '../unit/entities/mocks';
 
 describe('Integration test for crud of users', () => {
   beforeAll(async () => connection.create());
@@ -57,5 +57,21 @@ describe('Integration test for crud of users', () => {
 
     expect(response.status).toEqual(200);
     expect(response.body).toHaveLength(3);
+  });
+
+  it('should create and then update an user', async () => {
+    const stUser = mockCreateUserParams(0);
+
+    const createUserResponse = await request(app).post('/users').send(stUser);
+
+    const paramsToUpdate = mockUpdateUser();
+
+    const response = await request(app)
+      .patch(`/users/${createUserResponse.body.id}`)
+      .send(paramsToUpdate);
+
+    expect(response.status).toEqual(200);
+    expect(response.body).toHaveProperty('name', paramsToUpdate.name);
+    expect(response.body).toHaveProperty('email', paramsToUpdate.email);
   });
 });
