@@ -3,7 +3,7 @@ import { User } from '../entities';
 export interface UserRepository {
   create(params: UserRepository.createParams): Promise<User>;
   list(): Promise<User[]>;
-  update(params: UserRepository.updateParams): User;
+  update(params: UserRepository.updateParams): Promise<User>;
   delete(params: UserRepository.deleteParams): void;
 }
 
