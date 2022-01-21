@@ -19,8 +19,29 @@ export class TypeORMUserRepository implements UserRepository {
     return users;
   }
 
-  update() {
-    return { id: 'as', name: 'Edgar', age: 19, email: 'edgar@marques.com', password: 'senha123' };
+  async update(updateParams: UserUsecase.updateParams) {
+    const { id, ...otherParams } = updateParams;
+
+    console.log(otherParams);
+
+    const propertiesToUpdate = Object
+      .entries(otherParams)
+      .filter(([key, value]) => value)
+      .reduce((acc, curr) => {
+        return { ...acc, [curr[0]]: curr[1] }
+      }, {} as Record<string, any>)
+
+    console.log(propertiesToUpdate);
+
+    await TypeormHelper.connection.getRepository(User).update(
+      updateParams.id,
+      propertiesToUpdate,
+    );
+    const userUpdated = await TypeormHelper.connection.getRepository(User).findOne({
+      where: { id },
+    });
+
+    return userUpdated;
   }
 
   delete() {
