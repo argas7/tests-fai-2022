@@ -17,11 +17,11 @@ export class UserController {
     res.send(users);
   }
 
-  update(req, res) {
+  async update(req, res) {
     const { id } = req.params;
     const { name, email, password, age } = req.body;
 
-    const updatedUser = this.userService.update({ id, name, email, password, age });
+    const updatedUser = await this.userService.update({ id, name, email, password, age });
 
     res.send(updatedUser);
   }
