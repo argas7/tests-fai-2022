@@ -190,4 +190,9 @@ export default {
 
   // Whether to use watchman for file crawling
   // watchman: true,
+  modulePathIgnorePatterns: ['__tests__.*mocks.*'],
+  moduleNameMapper: {
+    '@/tests/(.*)': '<rootDir>/__tests__/$1',
+    '@/(.*)': '<rootDir>/src/$1',
+  },
 };
