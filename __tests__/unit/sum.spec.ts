@@ -40,7 +40,7 @@ describe('Firsts Test', () => {
     const result = {
       a: 'this',
       b: 'is',
-      c: 1,
+      c: 'one',
       d: 'test',
       e: 'example',
     };
